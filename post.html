@@ -1,0 +1,13 @@
+
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | Nova Tech Academy{% endblock %}
+{% block content %}
+<article class="inner-page article-page">
+    <a class="back-link"
+       href="{{ url_for('category', category_id=post.category_id) }}">
+        ← گەڕانەوە بۆ {{ post.category_name }}
+    </a>
+    <h1 class="page-title">{{ post.title }}</h1>
+    <div class="article-content">{{ post.content }}</div>
+</article>
+{% endblock %}

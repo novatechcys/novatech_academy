@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+{% block title %}بەڕێوەبردن{% endblock %}
+{% block content %}
+<section class="inner-page">
+    <div class="dashboard-heading">
+        <h1 class="page-title">بەڕێوەبردنی ماڵپەڕ</h1>
+        <form method="post" action="{{ url_for('logout') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="secondary-button" type="submit">دەرچوون</button>
+        </form>
+    </div>
+
+    <div class="dashboard-actions">
+        <a class="primary-button" href="{{ url_for('new_category') }}">زیادکردنی بەش</a>
+        <a class="primary-button" href="{{ url_for('new_post') }}">زیادکردنی وانە</a>
+    </div>
+
+    <h2>بەشەکان</h2>
+    {% for category in categories %}
+        <div class="manage-row">
+            <strong>{{ category.name }}</strong>
+            <div class="manage-actions">
+                <a href="{{ url_for('edit_category', category_id=category.id) }}">دەستکاری</a>
+                <form method="post"
+                      action="{{ url_for('delete_category', category_id=category.id) }}"
+                      data-confirm="ئایا دڵنیایت لە سڕینەوەی ئەم بەشە و وانەکانی؟">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="delete-button" type="submit">سڕینەوە</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p class="empty-state">هیچ بەشێک نییە.</p>
+    {% endfor %}
+
+    <h2>وانەکان</h2>
+    {% for item in posts %}
+        <div class="manage-row">
+            <div>
+                <strong>{{ item.title }}</strong>
+                <small>{{ item.category_name }}</small>
+            </div>
+            <div class="manage-actions">
+                <a href="{{ url_for('edit_post', post_id=item.id) }}">دەستکاری</a>
+                <form method="post"
+                      action="{{ url_for('delete_post', post_id=item.id) }}"
+                      data-confirm="ئایا دڵنیایت لە سڕینەوەی ئەم وانەیە؟">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button class="delete-button" type="submit">سڕینەوە</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p class="empty-state">هیچ وانەیەک نییە.</p>
+    {% endfor %}
+</section>
+{% endblock %}

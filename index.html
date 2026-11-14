@@ -1,0 +1,94 @@
+
+{% extends "base.html" %}
+{% block title %}Nova Tech Academy{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="welcome-label">WELCOME TO NOVA TECH</div>
+        <h1>Nova Tech Academy</h1>
+        <p>شوێنێک بۆ فێربوون و دۆزینەوەی جیهانی تەکنەلۆژیا</p>
+        <a href="#categories" class="hero-button">
+            بینینی بەشەکان <span>→</span>
+        </a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <div class="glow-orb"></div>
+        <div class="laptop">
+            <div class="laptop-screen">
+                <span class="screen-logo">NT</span>
+                <span class="screen-wave"></span>
+            </div>
+            <div class="laptop-base"></div>
+        </div>
+        <div class="coffee-cup">NT</div>
+        <div class="book-stack"><i></i><i></i></div>
+    </div>
+</section>
+
+<section class="categories-section" id="categories">
+    <div class="section-heading">
+        <span></span>
+        <h2>بەشەکانی ئەکادیمیا</h2>
+        <span></span>
+    </div>
+    <p class="section-description">
+        بابەت تەکنەلۆژیەکان لێرە کۆ دەکەینەوە
+    </p>
+
+    {% set category_info = [
+        ('Cybersecurity', 'shield'),
+        ('Linux', 'linux'),
+        ('Programming Languages', 'code'),
+        ('Graphic Design', 'design'),
+        ('Types of Hackers', 'hacker'),
+        ('Cybersecurity Careers', 'career')
+    ] %}
+
+    <div class="category-grid">
+        {% for category_name, icon_name in category_info %}
+            {% set selected = namespace(item=None) %}
+            {% for category in categories %}
+                {% if category.name == category_name %}
+                    {% set selected.item = category %}
+                {% endif %}
+            {% endfor %}
+
+            <a class="category-card {% if loop.first %}featured{% endif %}"
+               href="{% if selected.item %}{{ url_for('category', category_id=selected.item.id) }}{% else %}#categories{% endif %}"
+               {% if not selected.item %}aria-disabled="true" tabindex="-1"{% endif %}>
+                <div class="card-wave"></div>
+                <div class="card-icon">
+                    {% if icon_name == 'shield' %}
+                        <svg viewBox="0 0 64 64" aria-hidden="true">
+                            <path d="M32 5 53 14v16c0 14-9 23-21 29C20 53 11 44 11 30V14z"/>
+                            <rect x="25" y="29" width="14" height="13" rx="2"/>
+                            <path d="M28 29v-5a4 4 0 0 1 8 0v5"/>
+                        </svg>
+                    {% elif icon_name == 'linux' %}
+                        <span>♟</span>
+                    {% elif icon_name == 'code' %}
+                        <span>&lt;/&gt;</span>
+                    {% elif icon_name == 'design' %}
+                        <span>▣</span>
+                    {% elif icon_name == 'hacker' %}
+                        <span>◉</span>
+                    {% else %}
+                        <span>▱</span>
+                    {% endif %}
+                </div>
+                <h3>{{ category_name }}</h3>
+                <p>کرتە لێرە بکە بۆ بینین</p>
+                <span class="card-arrow">→</span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="simple-section" id="about">
+    <h2>دەربارە</h2>
+</section>
+<section class="simple-section" id="contact">
+    <h2>پەیوەندی</h2>
+</section>
+{% endblock %}

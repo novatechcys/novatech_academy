@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block title %}بەڕێوەبردنی بەش{% endblock %}
+{% block content %}
+<section class="form-card">
+    <h1>{{ 'دەستکاری بەش' if category else 'زیادکردنی بەش' }}</h1>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="name">ناوی بەش</label>
+        <input id="name" name="name" type="text" maxlength="80"
+               required value="{{ category.name if category else '' }}">
+        <button class="primary-button" type="submit">پاشەکەوتکردن</button>
+    </form>
+</section>
+{% endblock %}

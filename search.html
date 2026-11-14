@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block title %}گەڕان{% endblock %}
+{% block content %}
+<section class="inner-page">
+    <h1 class="page-title">گەڕان</h1>
+    <form class="search-form" action="{{ url_for('search') }}" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="بگەڕێ...">
+        <button class="primary-button" type="submit">گەڕان</button>
+    </form>
+    {% if query %}
+        {% for item in results %}
+            <a class="post-card" href="{{ url_for('post', post_id=item.id) }}">
+                <h2>{{ item.title }}</h2>
+                <span>{{ item.category_name }}</span>
+            </a>
+        {% else %}
+            <p class="empty-state">هیچ ئەنجامێک نەدۆزرایەوە.</p>
+        {% endfor %}
+    {% endif %}
+</section>
+{% endblock %}

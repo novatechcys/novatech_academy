@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block title %}{{ category.name }} | Nova Tech Academy{% endblock %}
+{% block content %}
+<section class="inner-page">
+    <a class="back-link" href="{{ url_for('index') }}">← گەڕانەوە بۆ سەرەکی</a>
+    <h1 class="page-title">{{ category.name }}</h1>
+
+    {% if posts %}
+        <div class="post-list">
+            {% for item in posts %}
+                <a class="post-card" href="{{ url_for('post', post_id=item.id) }}">
+                    <h2>{{ item.title }}</h2>
+                    <span>بینینی وانە ←</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-state">هێشتا هیچ وانەیەک لەم بەشەدا نییە.</p>
+    {% endif %}
+</section>
+{% endblock %}

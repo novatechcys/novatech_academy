@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% block title %}چوونەژوورەوە{% endblock %}
+{% block content %}
+<section class="form-card">
+    <h1>چوونەژوورەوەی بەڕێوەبەر</h1>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="username">ناوی بەکارهێنەر</label>
+        <input id="username" name="username" type="text"
+               required maxlength="80" autocomplete="username">
+        <label for="password">وشەی نهێنی</label>
+        <input id="password" name="password" type="password"
+               required autocomplete="current-password">
+        <button class="primary-button" type="submit">چوونەژوورەوە</button>
+    </form>
+</section>
+{% endblock %}
